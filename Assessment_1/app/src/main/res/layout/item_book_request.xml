@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:gravity="center_horizontal"
+
+    > <!-- android:background="@drawable/book_item_bg" ADD LATER -->
+
+    <!-- Book title! -->
+    <TextView
+        android:id="@+id/textBookTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/book_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#451F55" />
+
+    <!-- Member name (who is requesting) -->
+    <TextView
+        android:id="@+id/textIssueDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/member_name"
+        android:textSize="14sp"
+        android:textColor="#537BDF" />
+
+</LinearLayout>
