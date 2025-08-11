@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E9EEFB"
+    tools:context=".LoginActivity"
+    tools:ignore="ExtraText"> <!-- Nice background colour! -->
+
+
+    <!-- Title (Manage Catalogue) -->
+    <TextView
+        android:id="@+id/manageCatalogueTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/manage_catalogue"
+        android:textAppearance="@style/TitleAppearance"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.03"
+        />
+
+
+    <!-- Search Bar -->
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchBar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:queryHint="@string/search"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        android:background="#FFFFFF"
+
+        app:layout_constraintTop_toBottomOf="@id/manageCatalogueTitle"
+        app:layout_constraintBottom_toTopOf="@id/bookList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        />
+
+
+    <!-- Dropdown Book List -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/bookList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:padding="6dp"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"
+        android:background="#DEE2F4"
+        tools:listitem="@layout/item_book"
+
+        app:layout_constraintTop_toBottomOf="@id/searchBar"
+        app:layout_constraintBottom_toTopOf="@id/backButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        />
+
+    <!-- Back Button -->
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:enabled="true"
+        android:textColor="#000000"
+        android:background="#9E756FED"
+        android:text="@string/back"
+
+        app:layout_constraintBottom_toTopOf="@id/brandTag"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/bookList"
+        app:layout_constraintHorizontal_bias="0.5"
+        />
+
+
+
+    <!-- Logo at the page bottom -->
+    <TextView
+        android:id="@+id/brandTag"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textAppearance="@style/LogoAppearance"
+        android:layout_marginBottom="15dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintVertical_bias="0.9"
+        />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
