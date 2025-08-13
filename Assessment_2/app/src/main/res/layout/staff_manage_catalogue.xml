@@ -60,11 +60,29 @@
         tools:listitem="@layout/item_book"
 
         app:layout_constraintTop_toBottomOf="@id/searchBar"
-        app:layout_constraintBottom_toTopOf="@id/backButton"
+        app:layout_constraintBottom_toTopOf="@id/addBookButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         />
+
+
+    <!-- Button to add a new book) -->
+    <Button
+        android:id="@+id/addBookButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="@string/add_book"
+
+        app:layout_constraintBottom_toTopOf="@id/backButton"
+        app:layout_constraintTop_toBottomOf="@id/bookList"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+    />
+
+
 
     <!-- Back Button -->
     <Button
@@ -83,7 +101,7 @@
         app:layout_constraintBottom_toTopOf="@id/brandTag"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/bookList"
+        app:layout_constraintTop_toBottomOf="@id/addBookButton"
         app:layout_constraintHorizontal_bias="0.5"
         />
 

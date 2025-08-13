@@ -36,4 +36,6 @@
     <string name="issued_yyyy_mm_dd">Issued: YYYY-MM-DD</string>
     <string name="return_yyyy_mm_dd">Return: YYYY-MM-DD</string>
     <string name="staff_log_in">Staff Log In</string>
+    <string name="add_member">Add Member</string>
+    <string name="add_book">Add Book</string>
 </resources>

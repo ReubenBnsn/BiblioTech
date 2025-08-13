@@ -2,8 +2,13 @@ package com.example.bibliotech;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.example.bibliotech.data.AppDatabase;
+import com.example.bibliotech.data.Book;
+import com.example.bibliotech.data.BookDao;
+import java.util.List;
 
 public class MemberBookCatalogueActivity extends AppCompatActivity {
     @Override
@@ -19,5 +24,19 @@ public class MemberBookCatalogueActivity extends AppCompatActivity {
             Intent intent = new Intent(MemberBookCatalogueActivity.this, MemberHomeActivity.class);
             startActivity(intent);
         });
+
+
+
+        RecyclerView rv = findViewById(R.id.bookList);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        BookDao dao = AppDatabase.getInstance(this).bookDao();
+
+        new Thread(() -> {
+            List<Book> books = dao.getAll();
+            runOnUiThread(() -> rv.setAdapter(new BookAdapter(books)));
+        }).start();
+
+
+
     }
 }

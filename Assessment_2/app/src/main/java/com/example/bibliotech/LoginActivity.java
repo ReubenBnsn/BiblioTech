@@ -4,6 +4,13 @@ import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.widget.Button;
 
+import com.example.bibliotech.data.AppDatabase;
+import com.example.bibliotech.data.BookDao;
+import com.example.bibliotech.data.Book;
+import android.widget.Toast;
+import java.util.List;
+
+
 public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,5 +35,24 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, StaffHomeActivity.class);
             startActivity(intent);
         });
+
+
+
+
+        BookDao dao = AppDatabase.getInstance(this).bookDao();
+
+        new Thread(() -> {
+            dao.insert(new Book("1984","Orwell",false));
+            List<Book> books = dao.getAll();
+            runOnUiThread(() -> {
+                StringBuilder titles = new StringBuilder();
+                for (Book b : books) titles.append(b.title).append("\n");
+                Toast.makeText(this, titles.toString(), Toast.LENGTH_LONG).show();
+            });
+        }).start();
+
+
+
+
     }
 }
