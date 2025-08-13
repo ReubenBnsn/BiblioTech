@@ -9,10 +9,25 @@ import java.util.List;
 
 public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
-    private final List<Book> books;
+    private List<Book> books;
+    private OnItemClickListener listener;
 
-    public BookAdapter(List<Book> books) {
+    // adding an interface for any click events :)
+    public interface OnItemClickListener {
+        void onItemClick(Book  book);
+    }
+
+
+    // Adapter taking in books and click listeners
+    public BookAdapter(List<Book> books, OnItemClickListener listener) {
         this.books = books;
+        this.listener = listener;
+    }
+
+
+    public void filter(List<Book> filteredBooks) {
+        this.books = filteredBooks;  // replacing the list with the filtered one
+        notifyDataSetChanged();      // telling the recyclerView to refresh (data has changed)
     }
 
     @Override
@@ -28,7 +43,16 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
         // binding the book data to the  textView
         Book book = books.get(position);
         holder.titleText.setText(book.title);
+        holder.authorText.setText(book.author);
+
+        // calling listener when this row's clicked
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(book);
+            }
+        });
     }
+    // ## LATER ADD TO THIS - so users can search by author too!
 
     @Override
     public int getItemCount() {
@@ -37,11 +61,14 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
 
     // keeps references to the views for each item
     public static class ViewHolder extends RecyclerView.ViewHolder {
+        // Initialising the title and author
         TextView titleText;
+        TextView authorText;
 
         public ViewHolder(View itemView) {
             super(itemView);
             titleText = itemView.findViewById(R.id.textBookTitle);
+            authorText = itemView.findViewById(R.id.textBookAuthor);
         }
     }
 }

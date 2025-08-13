@@ -30,6 +30,7 @@
         <activity android:name=".StaffHomeActivity"/>
         <activity android:name=".StaffSettingsActivity"/>
         <activity android:name=".StaffManageCatalogueActivity"/>
+        <activity android:name=".StaffManageBookActivity" />
         <activity android:name=".StaffManageMembersActivity"/>
         <activity android:name=".StaffManageBookRequestsActivity"/>
 

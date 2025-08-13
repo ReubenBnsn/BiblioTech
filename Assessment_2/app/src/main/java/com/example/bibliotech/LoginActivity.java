@@ -41,6 +41,8 @@ public class LoginActivity extends AppCompatActivity {
 
         BookDao dao = AppDatabase.getInstance(this).bookDao();
 
+        /*
+        //Old code to add books for testing ## remove later
         new Thread(() -> {
             dao.insert(new Book("1984","Orwell",false));
             List<Book> books = dao.getAll();
@@ -50,6 +52,8 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(this, titles.toString(), Toast.LENGTH_LONG).show();
             });
         }).start();
+
+         */
 
 
 

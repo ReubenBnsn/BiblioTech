@@ -33,7 +33,13 @@ public class MemberBookCatalogueActivity extends AppCompatActivity {
 
         new Thread(() -> {
             List<Book> books = dao.getAll();
-            runOnUiThread(() -> rv.setAdapter(new BookAdapter(books)));
+            runOnUiThread(() -> {
+                BookAdapter adapter = new BookAdapter(books, book -> {
+                    // ## SO FAR on member's side: there are no click actions (## LATER: add new screen to view book details (Title, author, if it is available, button to request it)
+                    // so left as nothing for now
+                });
+                rv.setAdapter(adapter);
+            });
         }).start();
 
 

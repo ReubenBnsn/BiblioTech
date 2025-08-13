@@ -18,22 +18,48 @@
         android:textStyle="bold"
         android:textColor="#451F55" />
 
-    <!-- Book issue date! -->
+    <!-- Book Author! -->
+    <TextView
+        android:id="@+id/textBookAuthor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/book_author"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#451F55" />
+
+    <!-- Book issue date! (hidden so it doesn't show in the catalogue)-->
     <TextView
         android:id="@+id/textIssueDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/issued_yyyy_mm_dd"
         android:textSize="14sp"
-        android:textColor="#537BDF" />
+        android:textColor="#537BDF"
+        android:visibility="gone"
+    />
 
-    <!-- Book return date! -->
+    <!-- Book return date! (hidden so it doesn't show in the catalogue)-->
     <TextView
         android:id="@+id/textReturnDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/return_yyyy_mm_dd"
         android:textSize="14sp"
-        android:textColor="#537BDF" />
+        android:textColor="#537BDF"
+        android:visibility="gone"
+    />
+
+    <!-- Current Book Borrower! (hidden so it doesn't show in the catalogue)-->
+    <TextView
+        android:id="@+id/textBookBorrower"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/book_borrower"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#451F55"
+        android:visibility="gone"
+    />
 
 </LinearLayout>

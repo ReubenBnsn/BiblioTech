@@ -38,4 +38,16 @@
     <string name="staff_log_in">Staff Log In</string>
     <string name="add_member">Add Member</string>
     <string name="add_book">Add Book</string>
+    <string name="manage_book">Manage Book</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="book_author">Book Author</string>
+    <string name="book_issue_date">Book Issue Date</string>
+    <string name="book_return_date">Book Return Date</string>
+    <string name="current_borrower">Current Borrower</string>
+    <string name="return_date">Return Date</string>
+    <string name="issue_date">Issue Date</string>
+    <string name="author">Author</string>
+    <string name="title">Title</string>
+    <string name="book_borrower">Book Borrower</string>
+    <string name="delete_book">Delete Book</string>
 </resources>
