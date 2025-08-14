@@ -6,6 +6,8 @@ import androidx.room.Query;
 import androidx.room.Update;
 import java.util.List;
 
+import retrofit2.http.GET;
+
 @Dao
 public interface MemberDao {
 
@@ -14,7 +16,9 @@ public interface MemberDao {
     List<Member> getAll();
 
 
-
+    //getting a members record from their username
+    @Query("SELECT * FROM member WHERE username = :username LIMIT 1")
+    Member getByUsername(String username);
 
 
     // inserting a member
@@ -26,6 +30,12 @@ public interface MemberDao {
     @Update
     void update(Member member);
 
+    // deleting a member
+    @Delete
+    void delete(Member member);
+
+
+
 
     /* ## MIGHT NOT NEED - DELETE IF UNNEEDED
     // inserting multiple members (partly for syncing API list)
@@ -33,9 +43,6 @@ public interface MemberDao {
     void insertAll(List<Member> members);
 
 
-    // deleting a member
-    @Delete
-    void delete(Member member);
 
     // deleting all members  ## do i need this
     @Query("DELETE FROM member")

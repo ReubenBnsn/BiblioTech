@@ -43,10 +43,10 @@ public class StaffManageMembersActivity extends AppCompatActivity {
             allMembers = memberDao.getAll();
             runOnUiThread(() -> {
                 MemberAdapter adapter = new MemberAdapter(allMembers,  member ->{
-                    // opening the manage book screen
+                    // opening the manage member  screen
 
-                    Intent intent = new Intent(this, StaffManageBookActivity.class);
-                    intent.putExtra("MEMBER_USERNAME", member.username); // needs sorting here
+                    Intent intent = new Intent(StaffManageMembersActivity.this, StaffManageIndividualActivity.class);
+                    intent.putExtra("MEMBER_USERNAME", member.getUsername()); // needs sorting here
                     startActivityForResult(intent, 1); // lets program know when it comes back
                 });
 
@@ -57,7 +57,7 @@ public class StaffManageMembersActivity extends AppCompatActivity {
     }
 
     private void showAddDialog() {
-        // flipping inflating the item_book layout
+        // flipping inflating the member layout
         android.view.View dialogView = getLayoutInflater().inflate(R.layout.add_member, null);
 
         // TODO SOMEWHERE HERE - if time - make it so the user can only put in the right format stuff onadd new member
@@ -174,7 +174,7 @@ public class StaffManageMembersActivity extends AppCompatActivity {
                         if (r.isSuccessful()) {
                             // if its a  success: update Room with member and refresh
 
-                            Member  UpdatedMember = new Member(first, last, email, contact, endDate);
+                            Member  UpdatedMember = new Member(username, first, last, email, contact, endDate);
 
                             new Thread(() -> {
 
@@ -314,7 +314,7 @@ public class StaffManageMembersActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 List<Member> filteredList;
                 if (newText.isEmpty()) {
-                    filteredList = allMembers; // if the user has nothing typed, show all books
+                    filteredList = allMembers; // if the user has nothing typed, show all members
                 }
                 else {
                     filteredList = new java.util.ArrayList<>();
@@ -355,10 +355,17 @@ public class StaffManageMembersActivity extends AppCompatActivity {
 
                     List<Member> members = response.body();
 
+                    for (Member m : members) {
+                        m.normalizeEndDate();
+                    }
+
                     runOnUiThread(() -> {
                         MemberAdapter adapter = new MemberAdapter(members, member -> {
                             // item click stuff...
-                            showEditMemberDialog(member);
+
+                            Intent intent = new Intent(StaffManageMembersActivity.this, StaffManageIndividualActivity.class);
+                            intent.putExtra("username", member.getUsername());
+                            startActivity(intent);
                         });
                         rv.setAdapter(adapter);
                     });

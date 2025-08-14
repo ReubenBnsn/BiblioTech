@@ -55,4 +55,6 @@
     <string name="last_name">Last Name</string>
     <string name="contact_number">Contact Number</string>
     <string name="membership_end_date">Membership End Date</string>
+    <string name="manage_individual">Manage Individual</string>
+    <string name="delete_member">Delete Member</string>
 </resources>

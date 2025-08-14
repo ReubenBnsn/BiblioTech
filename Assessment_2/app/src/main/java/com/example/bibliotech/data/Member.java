@@ -3,6 +3,9 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import com.google.gson.annotations.SerializedName;
+import java.time.ZonedDateTime;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Entity(tableName = "member")
 public class Member {
@@ -54,5 +57,22 @@ public class Member {
 
     public String getMembershipEndDate() {return membership_end_date; }
     public void setMembershipEndDate(String membership_end_date) { this.membership_end_date = membership_end_date; }
+
+
+    
+    public void normalizeEndDate() {
+
+        // Here, the API gave dates in this format:  "Thu, 01 Jan 2026 00:00:00 GMT"
+        // But when you input a date like that, the API would not accept it and gave a 500 internal server error
+        // Because of this - I imported Java's built in DateTimeFormatter - with the format it uses on the API
+        DateTimeFormatter APIFormatter = DateTimeFormatter.RFC_1123_DATE_TIME;
+        ZonedDateTime zonedDateTimeWoo = ZonedDateTime.parse(membership_end_date, APIFormatter);
+
+        // This reformats the date, giving  YYYY-MM-DD format
+        // (meaning i can use it to add to the API and to simplify the program for the user)...
+        LocalDate tempDate = zonedDateTimeWoo.toLocalDate();
+        this.membership_end_date = tempDate.format(DateTimeFormatter.ISO_LOCAL_DATE);
+    }
+
 
 }
