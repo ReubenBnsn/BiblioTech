@@ -26,6 +26,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
     }
+
 }
 
 
@@ -33,8 +34,16 @@ def room_version = "2.7.2" //Adding room to make SQLite better and to make chang
 
 dependencies {
 
+    // more room stuff!
     implementation "androidx.room:room-runtime:$room_version" // more room support
     annotationProcessor "androidx.room:room-compiler:$room_version" // more room support
+
+    // Adding Retrofit!!! (to handle REST calls)
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // Should help with debugging!
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.3'
 
     implementation 'androidx.appcompat:appcompat:1.7.1'
     implementation 'com.google.android.material:material:1.12.0'

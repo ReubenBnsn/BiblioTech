@@ -6,10 +6,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 
-@Database(entities = {Book.class} , version = 1 , exportSchema = false) // ## exportSchema = false FOR NOW ONLY - to stop an error before JSON is configured
+@Database(entities = {Book.class, Member.class} , version = 2 , exportSchema = false) // ## exportSchema = false FOR NOW ONLY - to stop an error before JSON is configured
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract BookDao bookDao();
+    public abstract MemberDao memberDao();
 
 
     private static volatile AppDatabase INSTANCE;
@@ -23,7 +24,9 @@ public abstract class AppDatabase extends RoomDatabase {
                             context.getApplicationContext(),
                             AppDatabase.class,
                             "biblio_db"
-                    ).build();
+                    )
+                    .fallbackToDestructiveMigration() // should stop the errors i hope :(
+                    .build();
                 }
             }
         }
