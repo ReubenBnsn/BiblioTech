@@ -4,6 +4,8 @@ import android.view.ViewGroup;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.bibliotech.data.Book;
 import com.example.bibliotech.data.Member;
 import java.util.List;
 
@@ -22,6 +24,11 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
     public MemberAdapter(List<Member> members, OnItemClickListener listener) {
         this.members = members;
         this.listener = listener;
+    }
+
+    public void filter(List<Member> filteredMembers) {
+        this.members = filteredMembers;  // replacing the list with the filtered one
+        notifyDataSetChanged();      // telling the recyclerView to refresh (data has changed)
     }
 
 

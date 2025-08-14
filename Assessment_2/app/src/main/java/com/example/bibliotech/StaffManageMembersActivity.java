@@ -1,6 +1,7 @@
 package com.example.bibliotech;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.bibliotech.api.APIClient;
 import com.example.bibliotech.api.LibraryAPI;
 import com.example.bibliotech.api.MessageResponse;
+import com.example.bibliotech.api.UpdateMemberRequest;
 import com.example.bibliotech.data.AppDatabase;
 import com.example.bibliotech.data.Book;
 import com.example.bibliotech.data.Member;
@@ -19,6 +21,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import android.widget.Toast;
 
+// DONERS FOR NOW!
+
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DividerItemDecoration;
 
@@ -26,29 +30,29 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 
 public class StaffManageMembersActivity extends AppCompatActivity {
 
+    // Setting up some variables
     private MemberDao  memberDao;
-    private RecyclerView  rv;
+    private RecyclerView rv;
     private List<Member>  allMembers;
 
 
 
-
-
-
-
-
+    // Loads members (duh)
     private void loadMembers() {
         new Thread(() -> {
             allMembers = memberDao.getAll();
             runOnUiThread(() -> {
                 MemberAdapter adapter = new MemberAdapter(allMembers,  member ->{
                     // opening the manage book screen
+
                     Intent intent = new Intent(this, StaffManageBookActivity.class);
                     intent.putExtra("MEMBER_USERNAME", member.username); // needs sorting here
                     startActivityForResult(intent, 1); // lets program know when it comes back
                 });
+
                 rv.setAdapter(adapter);
             });
+
         }).start();
     }
 
@@ -100,44 +104,98 @@ public class StaffManageMembersActivity extends AppCompatActivity {
             loadMembers();
 
         }
+
     }
 
 
-    private void addMember(String username, String first, String last,
-                           String email, String contact, String endDate) {
-
-        Member newMember = new Member(
-                username,  first, last, email , contact, endDate
-        );
 
 
 
-        // call the API!
-        APIClient.getApi().addMember(newMember)
+
+
+
+    private void showEditMemberDialog(Member m) {
+        // Inflate your same add_member.xml (fields: etUsername, etFirstname, etc.)
+        View dialogView = getLayoutInflater().inflate(R.layout.add_member, null);
+
+        // Find all EditTexts:
+        EditText inputUsername = dialogView.findViewById(R.id.inputUsername);
+        EditText inputFirst = dialogView.findViewById(R.id.inputFirstName);
+        EditText inputLast  = dialogView.findViewById(R.id.inputLastName);
+        EditText inputEmail = dialogView.findViewById(R.id.inputEmail);
+        EditText inputContact = dialogView.findViewById(R.id.inputContact);
+        EditText inputEndDate = dialogView.findViewById(R.id.input_membership_end_date);
+
+        // Setting existing values to start with
+        inputUsername.setText(m.getUsername());
+        inputUsername.setEnabled(false);        // username is the primary (unique) key, so no editing
+        inputFirst.setText(m.getFirstname());
+        inputLast.setText(m.getLastname());
+        inputEmail.setText(m.getEmail());
+        inputContact.setText(m.getContact());
+        inputEndDate.setText(m.getMembershipEndDate());
+
+        new android.app.AlertDialog.Builder(this)
+                .setTitle("Edit Member")
+                .setView(dialogView)
+                .setPositiveButton("Save", (dlg, which) -> {
+                    // Taking in the updated text
+                    String username = inputUsername.getText().toString().trim();
+                    String first = inputFirst.getText().toString().trim();
+                    String last = inputLast.getText().toString().trim();
+                    String email = inputEmail.getText(). toString().trim();
+                    String contact = inputContact.getText().toString().trim();
+                    String endDate= inputEndDate.getText().toString().trim();
+
+                    // actually calling for the update
+                    updateMember(m.getUsername(), first, last, email, contact, endDate);
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+
+
+
+
+
+
+    private void updateMember(String username, String first, String last,String email,String contact,String endDate) {
+
+
+        UpdateMemberRequest dto = new UpdateMemberRequest(first, last, email, contact, endDate);
+
+        // using PUT to update the API
+        APIClient.getApi()
+                .updateMember(username, dto)
                 .enqueue(new Callback<MessageResponse>() {
                     @Override
                     public void onResponse(Call<MessageResponse> c, Response<MessageResponse> r) {
                         if (r.isSuccessful()) {
-                            // If it works, insert it into the local database & refresh the list
+                            // if its a  success: update Room with member and refresh
+
+                            Member  UpdatedMember = new Member(first, last, email, contact, endDate);
+
                             new Thread(() -> {
-                                memberDao.insert(newMember);
+
+                                memberDao.update(UpdatedMember);
                                 runOnUiThread(() -> fetchMembersFromAPI());
+
                             }).start();
-
-                        } else {
-                            runOnUiThread(() -> Toast.makeText(
-
-                                    StaffManageMembersActivity.this,
-                                    "There was an API error: " + r.code(),
-                                    Toast.LENGTH_SHORT).show());
+                        }
+                        else { // If it fails...
+                            runOnUiThread(() ->
+                                    Toast.makeText(StaffManageMembersActivity.this, "The update has failed: " + r.code(), Toast.LENGTH_SHORT).show());
                         }
                     }
-                    @Override
-                    public void onFailure(Call<MessageResponse>  c , Throwable t) {
-                        runOnUiThread(() -> Toast.makeText(
-                                StaffManageMembersActivity.this,
-                                "Network error: " + t.getMessage(),
-                                Toast.LENGTH_SHORT).show());
+
+                    @Override // more if it fails stuff...
+                    public void onFailure(Call<MessageResponse> c, Throwable t) {
+                        runOnUiThread(() ->
+
+                                Toast.makeText(StaffManageMembersActivity.this,
+                                        "A network error has occured: " + t.getMessage(),
+                                        Toast.LENGTH_SHORT).show());
                     }
                 });
     }
@@ -163,10 +221,47 @@ public class StaffManageMembersActivity extends AppCompatActivity {
 
 
 
+    private void addMember(String username, String first, String last,
+                           String email, String contact, String endDate) {
+
+        Member newMember = new Member(
+                username,  first, last, email , contact, endDate
+        );
 
 
+        // call the API!
+        APIClient.getApi().addMember(newMember)
+                .enqueue(new Callback<MessageResponse>() {
+                    @Override
+
+                    public void onResponse(Call<MessageResponse> c, Response<MessageResponse> r) {
+                        if (r.isSuccessful()) {
+                            // If it works, insert it into the local database & refresh the list
+                            new Thread(() -> {
+                                memberDao.insert(newMember);
+                                runOnUiThread(() -> fetchMembersFromAPI());
+                            }).start();
 
 
+                            // Error messaging!
+                        }
+                        else {
+                            runOnUiThread(() -> Toast.makeText(
+
+                                    StaffManageMembersActivity.this,
+                                    "There was an API error: " + r.code(),
+                                    Toast.LENGTH_SHORT).show());
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<MessageResponse>  c , Throwable t) {
+                        runOnUiThread(() -> Toast.makeText(
+                                StaffManageMembersActivity.this,
+                                "Network error: " + t.getMessage(),
+                                Toast.LENGTH_SHORT).show());
+                    }
+                });
+    }
 
 
     @Override
@@ -179,17 +274,19 @@ public class StaffManageMembersActivity extends AppCompatActivity {
         rv = findViewById(R.id.memberList);
         rv.setLayoutManager(new LinearLayoutManager(this));
 
+        // adding a divider between members  in the container!
+        DividerItemDecoration lilDivider= new DividerItemDecoration(rv.getContext(), LinearLayoutManager.VERTICAL);
+        rv.addItemDecoration(lilDivider);
+
         fetchMembersFromAPI();
 
-
-        // Fins the 'Add New Member' button! xo
+        // finds the addNewMemberButton! xo
         Button addButton = findViewById(R.id.addNewMemberButton);
         addButton.setOnClickListener(v ->
                 showAddDialog()
         );
-
-
         // Finds the back button by ID
+
         Button backButton = findViewById(R.id.backButton);
         // Sets an onClickListener (when x is clicked, do y)
         backButton.setOnClickListener(v -> {
@@ -197,47 +294,82 @@ public class StaffManageMembersActivity extends AppCompatActivity {
             Intent intent = new Intent(StaffManageMembersActivity.this, StaffHomeActivity.class);
             startActivity(intent);
         });
+
+
+        // gets  the search bar by ID
+        SearchView search = findViewById(R.id.searchBar);
+        // expanding the search view when clicked
+        search.setOnClickListener(v -> {
+            search.setIconified(false);  // opening the search input
+            search.requestFocus();
+        });
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit (String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                List<Member> filteredList;
+                if (newText.isEmpty()) {
+                    filteredList = allMembers; // if the user has nothing typed, show all books
+                }
+                else {
+                    filteredList = new java.util.ArrayList<>();
+                    for (Member x : allMembers) {
+                        if (x.username.toLowerCase().contains(newText.toLowerCase())   ||    x.firstname.toLowerCase().contains(newText.toLowerCase())  ||    x.lastname.toLowerCase().contains(newText.toLowerCase()))  {
+                            filteredList.add(x);
+                        }
+                    }
+                }
+
+                // stops crashing if filtering happens before the data is loaded (or if it loads wrong)
+                if (rv.getAdapter() != null) {
+                    // telling the adapter to use the new list (if no issues)
+                    ((MemberAdapter) rv.getAdapter()).filter(filteredList);
+
+                    // puts the user to the top of the results when  search results change (nifty eh)
+                    rv.scrollToPosition(0);
+                }
+
+                return true;
+
+
+            }
+
+        });
+
+
     }
 
-
     private void fetchMembersFromAPI() {
+
         LibraryAPI api = APIClient.getApi();
         api.getAllMembers().enqueue(new Callback<List<Member>>() {
             @Override
             public void onResponse(Call<List<Member>> call, Response<List<Member>> response) {
+
                 if (response.isSuccessful() && response.body() != null) {
 
                     List<Member> members = response.body();
 
                     runOnUiThread(() -> {
                         MemberAdapter adapter = new MemberAdapter(members, member -> {
-                            // handle item click if you want ## later maybe?
+                            // item click stuff...
+                            showEditMemberDialog(member);
                         });
                         rv.setAdapter(adapter);
                     });
 
-                    /*
-                    new Thread(() -> {
-                        // clearing old members & inserting new ones
-                        memberDao.deleteAll();
-                        memberDao.insertAll(members);
+                // ## TODO - Handle member click - OPEN EDIT PAGE FOR Individual MEMBER
 
-                        runOnUiThread(() -> {
-                            // supplying the  adapter with new data
-                            MemberAdapter adapter = new MemberAdapter(members, member -> {
-
-                                // ## TODO - Handle member click - OPEN EDIT PAGE FOR Individual MEMBER
-                            });
-                            rv.setAdapter(adapter);
-                        });
-                    }).start();
-
-                     */
 
                 } else
                 {
                     runOnUiThread(() -> {
-                        // Error message and code here - with Toast (yummy)
+                        // error message and code here - with Toast (yummy)
                         android.widget.Toast.makeText(StaffManageMembersActivity.this,
                                 "Couldn't fetch members: " + response.code(),
                                 android.widget.Toast.LENGTH_SHORT).show();

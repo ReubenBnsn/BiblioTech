@@ -45,6 +45,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         />
 
+<!-- ## TODO (In the item_member.xml or  Java Side) - make it so only username and first name and last name show until you click -->
 
     <!-- Dropdown Member List -->
     <androidx.recyclerview.widget.RecyclerView

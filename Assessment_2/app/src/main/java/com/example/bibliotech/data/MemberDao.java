@@ -9,23 +9,29 @@ import java.util.List;
 @Dao
 public interface MemberDao {
 
-    // 1) Get all members from local DB
+    // Getting members from local database
     @Query("SELECT * FROM member")
     List<Member> getAll();
 
 
 
-    // 2) Insert a member
+
+
+    // inserting a member
     @Insert
     void insert(Member member);
 
-    // 3) Insert multiple members at once (useful when syncing API list)
-    @Insert
-    void insertAll(List<Member> members);
 
     // updating a member
     @Update
     void update(Member member);
+
+
+    /* ## MIGHT NOT NEED - DELETE IF UNNEEDED
+    // inserting multiple members (partly for syncing API list)
+    @Insert
+    void insertAll(List<Member> members);
+
 
     // deleting a member
     @Delete
@@ -34,6 +40,8 @@ public interface MemberDao {
     // deleting all members  ## do i need this
     @Query("DELETE FROM member")
     void deleteAll();
+
+     */
 
 
 }

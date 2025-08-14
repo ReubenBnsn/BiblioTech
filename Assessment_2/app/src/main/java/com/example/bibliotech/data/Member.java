@@ -24,7 +24,7 @@ public class Member {
     public String membership_end_date;
 
     // Constructors yay!
-    public Member() {}
+    public Member(String first, String last, String email, String contact, String endDate) {}
 
     public Member(String username, String firstname, String lastname,
                   String email, String contact, String membership_end_date) {
