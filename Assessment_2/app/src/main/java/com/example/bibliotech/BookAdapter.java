@@ -18,7 +18,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
     }
 
 
-    // Adapter taking in books and click listeners
+    // adapter taking in books and helping assign click listeners - so the user can click on books to
     public BookAdapter(List<Book> books, OnItemClickListener listener) {
         this.books = books;
         this.listener = listener;
@@ -52,7 +52,7 @@ public class BookAdapter extends RecyclerView.Adapter<BookAdapter.ViewHolder> {
             }
         });
     }
-    // ## LATER ADD TO THIS - so users can search by author too!
+    //
 
     @Override
     public int getItemCount() {

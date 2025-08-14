@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     android:background="#E9EEFB"
     tools:context=".LoginActivity"
-    tools:ignore="ExtraText"
-    > <!-- setup stuff (with the nice background colour!) -->
+    tools:ignore="ExtraText"> <!-- setup stuff (with the nice background colour!) -->
 
 
     <!-- Title (Manage Individual) -->
@@ -24,42 +23,38 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.03"
-        />
+        app:layout_constraintVertical_bias="0.03" />
 
     <!-- Manage Individual fields container! x -->
     <LinearLayout
         android:id="@+id/manageIndividualLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="20dp"
         android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
+        android:orientation="vertical"
 
-        app:layout_constraintTop_toBottomOf="@id/manageIndividualTitle"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        >
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manageIndividualTitle">
 
 
         <!-- Username Card view (so I can add rounded corners) -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardCornerRadius="10dp"
             android:layout_marginBottom="10dp"
-            >
+            app:cardCornerRadius="10dp">
 
             <!-- Layout for Username! -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingStart="12dp"
-                android:paddingEnd="8dp"
-                >
+                android:paddingEnd="8dp">
 
                 <!-- edit username title -->
                 <EditText
@@ -67,14 +62,12 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="@string/username"
-                    android:background="@android:color/transparent"
-                    android:textSize="16sp"
-                    android:inputType="text"
-                    android:enabled="false"
                     android:autofillHints="Username"
-                    />
-
+                    android:background="@android:color/transparent"
+                    android:enabled="false"
+                    android:hint="@string/username"
+                    android:inputType="text"
+                    android:textSize="16sp" />
 
 
             </LinearLayout>
@@ -84,19 +77,17 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardCornerRadius="10dp"
             android:layout_marginBottom="10dp"
-            >
+            app:cardCornerRadius="10dp">
 
             <!-- first name layout -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingStart="12dp"
-                android:paddingEnd="8dp"
-                >
+                android:paddingEnd="8dp">
 
                 <!-- first name -->
                 <EditText
@@ -104,25 +95,23 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="@string/first_name"
-                    android:background="@android:color/transparent"
-                    android:textColor="#444"
-                    android:textSize="16sp"
-                    android:inputType="textPersonName"
-                    android:enabled="true"
                     android:autofillHints="First Name"
-                    />
+                    android:background="@android:color/transparent"
+                    android:enabled="true"
+                    android:hint="@string/first_name"
+                    android:inputType="textPersonName"
+                    android:textColor="#444"
+                    android:textSize="16sp" />
 
                 <!-- first name - edit symbol -->
                 <ImageView
                     android:id="@+id/editFirstName"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_edit"
                     android:contentDescription="@string/edit_field"
+                    android:src="@android:drawable/ic_menu_edit"
 
-                    app:tint="#646978"
-                    />
+                    app:tint="#646978" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -131,19 +120,17 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardCornerRadius="10dp"
             android:layout_marginBottom="10dp"
-            >
+            app:cardCornerRadius="10dp">
 
             <!-- last  name layout -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingStart="12dp"
-                android:paddingEnd="8dp"
-                >
+                android:paddingEnd="8dp">
 
                 <!-- last name -->
                 <EditText
@@ -151,25 +138,23 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="@string/last_name"
-                    android:background="@android:color/transparent"
-                    android:textColor="#444"
-                    android:textSize="16sp"
-                    android:inputType="textPersonName"
-                    android:enabled="true"
                     android:autofillHints="Last Name"
-                    />
+                    android:background="@android:color/transparent"
+                    android:enabled="true"
+                    android:hint="@string/last_name"
+                    android:inputType="textPersonName"
+                    android:textColor="#444"
+                    android:textSize="16sp" />
 
                 <!-- last name - edit symbol -->
                 <ImageView
                     android:id="@+id/editLastName"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_edit"
                     android:contentDescription="@string/edit_field"
+                    android:src="@android:drawable/ic_menu_edit"
 
-                    app:tint="#646978"
-                    />
+                    app:tint="#646978" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -178,19 +163,17 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardCornerRadius="10dp"
             android:layout_marginBottom="10dp"
-            >
+            app:cardCornerRadius="10dp">
 
             <!-- email  layout -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingStart="12dp"
-                android:paddingEnd="8dp"
-                >
+                android:paddingEnd="8dp">
 
                 <!-- email layout -->
                 <EditText
@@ -198,49 +181,43 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="@string/email_address"
-                    android:background="@android:color/transparent"
-                    android:textColor="#444"
-                    android:textSize="16sp"
-                    android:inputType="textEmailAddress"
-                    android:enabled="true"
                     android:autofillHints="Email Address"
-                    />
+                    android:background="@android:color/transparent"
+                    android:enabled="true"
+                    android:hint="@string/email_address"
+                    android:inputType="textEmailAddress"
+                    android:textColor="#444"
+                    android:textSize="16sp" />
 
                 <!-- email edit symbol -->
                 <ImageView
                     android:id="@+id/editBookIssueDateSymbol"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_edit"
                     android:contentDescription="@string/edit_field"
+                    android:src="@android:drawable/ic_menu_edit"
 
-                    app:tint="#646978"
-                    />
+                    app:tint="#646978" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
-
-
 
 
         <!-- Contact Card view (so I can add rounded corners!) -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardCornerRadius="10dp"
             android:layout_marginBottom="10dp"
-            >
+            app:cardCornerRadius="10dp">
 
             <!-- contact -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingStart="12dp"
-                android:paddingEnd="8dp"
-                >
+                android:paddingEnd="8dp">
 
                 <!-- contact -->
                 <EditText
@@ -248,25 +225,23 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="@string/contact_number"
-                    android:background="@android:color/transparent"
-                    android:textColor="#444"
-                    android:textSize="16sp"
-                    android:inputType="number"
-                    android:enabled="true"
                     android:autofillHints="Contact Number"
-                    />
+                    android:background="@android:color/transparent"
+                    android:enabled="true"
+                    android:hint="@string/contact_number"
+                    android:inputType="number"
+                    android:textColor="#444"
+                    android:textSize="16sp" />
 
                 <!-- Contact - edit symbol -->
                 <ImageView
                     android:id="@+id/editContact"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_edit"
                     android:contentDescription="@string/edit_field"
+                    android:src="@android:drawable/ic_menu_edit"
 
-                    app:tint="#646978"
-                    />
+                    app:tint="#646978" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -276,19 +251,17 @@
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            app:cardCornerRadius="10dp"
             android:layout_marginBottom="10dp"
-            >
+            app:cardCornerRadius="10dp">
 
             <!-- manageMembershipEndDate layout -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:paddingStart="12dp"
-                android:paddingEnd="8dp"
-                >
+                android:paddingEnd="8dp">
 
                 <!-- membership end date edittext -->
                 <EditText
@@ -296,25 +269,23 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:hint="@string/membership_end_date"
-                    android:background="@android:color/transparent"
-                    android:textColor="#444"
-                    android:textSize="16sp"
-                    android:inputType="date"
-                    android:enabled="true"
                     android:autofillHints="Membership End Date"
-                    />
+                    android:background="@android:color/transparent"
+                    android:enabled="true"
+                    android:hint="@string/membership_end_date"
+                    android:inputType="date"
+                    android:textColor="#444"
+                    android:textSize="16sp" />
 
                 <!-- MembershipEndDate edit symbol -->
                 <ImageView
                     android:id="@+id/editMembershipEndDate"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_edit"
                     android:contentDescription="@string/edit_field"
+                    android:src="@android:drawable/ic_menu_edit"
 
-                    app:tint="#646978"
-                    />
+                    app:tint="#646978" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -334,13 +305,12 @@
         android:enabled="true"
         android:text="@string/save_changes"
 
-        app:layout_constraintTop_toBottomOf="@id/manageIndividualLayout"
         app:layout_constraintBottom_toTopOf="@id/manageDeleteMemberButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.7"
         app:layout_constraintHorizontal_bias="0.5"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manageIndividualLayout"
+        app:layout_constraintVertical_bias="0.7" />
 
     <!-- Delete Book Button -->
     <Button
@@ -350,20 +320,18 @@
         android:layout_marginStart="48dp"
         android:layout_marginEnd="48dp"
         android:layout_marginBottom="10dp"
-        android:padding="6dp"
-        android:enabled="true"
-        android:text="@string/delete_member"
         android:background="#F60B1B"
+        android:enabled="true"
+        android:padding="6dp"
+        android:text="@string/delete_member"
         android:textColor="#000000"
 
-        app:layout_constraintTop_toBottomOf="@id/manageSaveChangesButton"
         app:layout_constraintBottom_toTopOf="@id/manageBackButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.7"
         app:layout_constraintHorizontal_bias="0.5"
-        />
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manageSaveChangesButton"
+        app:layout_constraintVertical_bias="0.7" />
 
 
     <!-- Back Button -->
@@ -375,32 +343,30 @@
         android:layout_marginEnd="48dp"
 
         android:layout_marginBottom="20dp"
-        android:enabled="true"
-        android:textColor="#000000"
         android:background="#9E756FED"
+        android:enabled="true"
         android:text="@string/back"
+        android:textColor="#000000"
 
         app:layout_constraintBottom_toTopOf="@id/brandTag"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/manageDeleteMemberButton"
         app:layout_constraintHorizontal_bias="0.5"
-        />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/manageDeleteMemberButton" />
 
 
     <TextView
         android:id="@+id/brandTag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
         android:text="@string/app_name"
         android:textAppearance="@style/LogoAppearance"
-        android:layout_marginBottom="15dp"
 
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.9"
-        />
+        app:layout_constraintVertical_bias="0.9" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

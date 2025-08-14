@@ -37,18 +37,5 @@ public interface MemberDao {
 
 
 
-    /* ## MIGHT NOT NEED - DELETE IF UNNEEDED
-    // inserting multiple members (partly for syncing API list)
-    @Insert
-    void insertAll(List<Member> members);
-
-
-
-    // deleting all members  ## do i need this
-    @Query("DELETE FROM member")
-    void deleteAll();
-
-     */
-
 
 }

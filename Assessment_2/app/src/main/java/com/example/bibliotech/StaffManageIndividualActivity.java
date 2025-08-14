@@ -123,11 +123,8 @@ public class StaffManageIndividualActivity extends AppCompatActivity {
     }
 
 
-    // ## TODO un freaky this text
-    private void updateMember(String username, String first, String last, String email, String contact, String endDate) {
 
-
-
+    private void updateMember(String username  ,  String first ,  String last , String email , String contact , String endDate) {
         UpdateMemberRequest request = new UpdateMemberRequest(first, last, email, contact, endDate);
 
         api.updateMember(username, request).enqueue(new Callback<MessageResponse>() {
@@ -136,29 +133,32 @@ public class StaffManageIndividualActivity extends AppCompatActivity {
                 if (r.isSuccessful()) {
                     new Thread(() -> {
                         Member updatedMember = new Member(username, first, last, email, contact, endDate);
-                        memberDao.update(updatedMember) ;
+                        memberDao.update(updatedMember);
                         runOnUiThread(() -> {
-                            Toast.makeText(StaffManageIndividualActivity.this, "Updated", Toast.LENGTH_SHORT).show();
-                            finish();   // or navigate back and refresh list
+                            Toast.makeText(StaffManageIndividualActivity.this, "Updated!", Toast.LENGTH_SHORT).show();
+                            finish();
                         });
                     }).start();
                 } else {
-                    runOnUiThread(() -> Toast.makeText(StaffManageIndividualActivity.this, "Error: " + r.code(), Toast.LENGTH_SHORT).show());
+                    runOnUiThread(() -> Toast.makeText(StaffManageIndividualActivity.this, "Error Given: " + r.code(), Toast.LENGTH_SHORT).show());
                 }
             }
 
             @Override
             public void onFailure(Call<MessageResponse> c, Throwable t) {
-                runOnUiThread(() -> Toast.makeText(StaffManageIndividualActivity.this, "Network error", Toast.LENGTH_SHORT).show());
+                runOnUiThread(() -> Toast.makeText(StaffManageIndividualActivity.this, "Network error given :(", Toast.LENGTH_SHORT).show());
             }
         });
-
-
     }
 
-    private void deleteMember(String username){
-        api.deleteMember(username).enqueue(new Callback<MessageResponse>() {
-            @Override public void onResponse(Call<MessageResponse> c, Response<MessageResponse> r)
+
+
+
+    private void deleteMember(String username)
+    {
+        api.deleteMember(username).enqueue(new Callback<MessageResponse>()
+        {
+            @Override public void onResponse(Call<MessageResponse> c , Response<MessageResponse> r)
             {
                 if (r.isSuccessful())
                 {
@@ -168,14 +168,16 @@ public class StaffManageIndividualActivity extends AppCompatActivity {
                         runOnUiThread(() ->
                         {
                             Toast.makeText(StaffManageIndividualActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
-                            finish();   // back to list
+                            finish();   // done! back to manage members list
                         });
                     }).start();
-                } else {
+                }
+                else {
                     runOnUiThread(() -> Toast.makeText(StaffManageIndividualActivity.this, "Error: "+r.code(), Toast.LENGTH_SHORT).show());
                 }
             }
-            @Override public void onFailure(Call<MessageResponse> c, Throwable t) {
+            @Override public void onFailure(Call<MessageResponse> c, Throwable  t)
+            {
                 runOnUiThread(() -> Toast.makeText(StaffManageIndividualActivity.this, "Network error", Toast.LENGTH_SHORT).show());
             }
         });

@@ -19,7 +19,7 @@
         android:layout_margin="10dp"
     />
 
-    <!-- ## TODO I THINK HERE OR IN JAVA - make it so that the input form only takes in dates in the format 2026-01-01 -->
+    <!-- ## TODO - if not for time constraints - I THINK HERE OR IN JAVA - make it so that the input form only takes in dates in the format 2026-01-01 -->
 
     <!-- Enter First Name! -->
     <EditText
